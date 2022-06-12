@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container-form {
+@apply  min-h-screen flex  items-center justify-center max-w-4xl mx-auto px-3 flex-col md:flex-row;
+}
+
+.container-form .item1{
+ @apply md:w-[62%] min-h-[20rem] pt-10 md:pt-0;
+}
+
+.container-form .item2{
+  @apply md:w-[38%]  md:min-h-[20rem] pb-6 md:pb-0  mt-10 md:pt-0;
+ }
+
+
+ .loader {
+  border: 4px solid #f3f3f3; 
+  border-top: 4px solid rgb(239 68 68 ); /* Blue */
+  border-bottom: 4px solid rgb(239 68 68 ); /* Blue */
+  border-radius: 50%;
+  width: 20px;
+  margin: auto;
+  height: 20px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.eye{
+  @apply absolute right-2 top-3 text-white;
+}
