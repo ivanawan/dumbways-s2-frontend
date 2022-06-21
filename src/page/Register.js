@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect} from "react";
-import UserContext from "../component/context";
+
 import { useNavigate } from "react-router-dom";
 import "../css/main.css";
 import axios from "axios";
@@ -9,14 +9,14 @@ function Register() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [loding, setLoding] = useState(false);
   const [visiblity,setVisibility] =useState(false);
-  const user = useContext(UserContext);
+  // const user = useContext(UserContext);
   let navigate = useNavigate();
 
-  useEffect(()=>{
-    if(user.get.login=== true){
-     navigate('/',{replace:true});
-    }
-   });
+  // useEffect(()=>{
+  //   if(user.get.login=== true){
+  //    navigate('/',{replace:true});
+  //   }
+  //  });
 
   // hadle submit and send data toa api
   const handleSubmit = (e) => {
@@ -37,23 +37,23 @@ function Register() {
         if (res.data.status === "error" || res.data.status === "failed") {
           swal("login Failed!", res.data.message, "error");
         } 
-         if(res.data.status === "success"){
-          user.setUser({
-            ...user.get,
-            login:true,
-            address: res.data.data.address,
-            email: res.data.data.email,
-            id: res.data.data.id,
-            gender: res.data.data.gender,
-            image: res.data.data.image,
-            token: res.data.data.token,
-            name: res.data.data.name,
-            phone: res.data.data.phone,
-            role: res.data.data.role,
-          });
-          console.log("kjhkjhg",user);
-          navigate("/", { replace: true });
-        }
+        //  if(res.data.status === "success"){
+        //   user.setUser({
+        //     ...user.get,
+        //     login:true,
+        //     address: res.data.data.address,
+        //     email: res.data.data.email,
+        //     id: res.data.data.id,
+        //     gender: res.data.data.gender,
+        //     image: res.data.data.image,
+        //     token: res.data.data.token,
+        //     name: res.data.data.name,
+        //     phone: res.data.data.phone,
+        //     role: res.data.data.role,
+        //   });
+        //   console.log("kjhkjhg",user);
+        //   navigate("/", { replace: true });
+        // }
       })
       .catch((err) => {
         setLoding(false);

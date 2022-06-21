@@ -25,18 +25,18 @@ function Kategori(){
 <tbody>
   <tr className="bg-[#232323] hover:bg-[#303030] border-b border-gray-600">
     <td className="px-4 py-3">1</td>
-    <td className="px-4 py-3">Smith khjkj kjhk</td>
-    <td className="px-4 py-3 flex gap-3"> <a href="" className='bg-green-500 rounded px-7 py-[1px] font-medium'>Edit</a> <a href="" className='bg-red-500 rounded px-7 py-[1px] font-medium'>Delete</a></td>
+    <td className="px-4 py-3">keyboard</td>
+    <td className="px-4 py-3 flex gap-3"> <a href="/" className='bg-green-500 rounded px-7 py-[1px] font-medium'>Edit</a> <a href="/" className='bg-red-500 rounded px-7 py-[1px] font-medium'>Delete</a></td>
   </tr>    
   <tr className="bg-[#232323] hover:bg-[#303030] border-b border-gray-600">
-    <td className="px-4 py-3">1</td>
-    <td className="px-4 py-3">Smith</td>
-    <td className="px-4 py-3 flex"> <a href="" className=''>Edit</a></td>
-  </tr>  
+    <td className="px-4 py-3">2</td>
+    <td className="px-4 py-3">mouse</td>
+    <td className="px-4 py-3 flex gap-3"> <a href="/" className='bg-green-500 rounded px-7 py-[1px] font-medium'>Edit</a> <a href="/" className='bg-red-500 rounded px-7 py-[1px] font-medium'>Delete</a></td>
+  </tr> 
   <tr className="bg-[#232323] hover:bg-[#303030] border-b border-gray-600">
-    <td className="px-4 py-3">1</td>
-    <td className="px-4 py-3">Smith</td>
-    <td className="px-4 py-3 flex"> <a href="" className=''>Edit</a></td>
+    <td className="px-4 py-3">3</td>
+    <td className="px-4 py-3">monitor</td>
+    <td className="px-4 py-3 flex gap-3"> <a href="/" className='bg-green-500 rounded px-7 py-[1px] font-medium'>Edit</a> <a href="/" className='bg-red-500 rounded px-7 py-[1px] font-medium'>Delete</a></td>
   </tr>    
 </tbody>
 </table>

@@ -1,64 +1,42 @@
-import { useState, useContext, useEffect } from "react";
-import UserContext from "../component/context";
+import { useState} from "react";
+import { userAdd } from "../app/slice/userSlice";
+import { useDispatch} from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "../css/main.css";
-import axios from "axios";
-import swal from "sweetalert";
-import { data } from "autoprefixer";
+
+import {Api,check} from "../component/api";
+
+
 
 function Login() {
   const [form, setForm] = useState({ email: "", password: "" });// for hadle form 
   const [loding, setLoding] = useState(false); // for hadle loading 
   const [visiblity,setVisibility]= useState(false); //for handle visibility password
-  const user = useContext(UserContext); // for hadle contect
   let navigate = useNavigate();
-
-  // useEffect(()=>{
-  //  if(user.get.login=== true){
-  //   navigate('/',{replace:true});
-  //  }
-  // });
-  //handle submit and send data to api
+  const dispatch=useDispatch();
+  
+  /**
+   * handle submit to the api
+   * @param {object} e 
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoding(true);
-    axios({
-      method: "POST",
-      url: "http://localhost:5000/user/login",
-      data: form,
-      headers: {
-        "Access-Control-Allow-Origin": "http://localhost:3000",
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        console.log(res);
-        if (res.data.status === "error" || res.data.status === "failed") {
-          swal("login Failed!", res.data.message, "error");
-        } 
-        if(res.data.status === "success"){
-          updateContext(res.data.data);
-          console.log("kjhkjhg",res.data.data,user.get);
-          navigate("/", { replace: true });
-        }
-        setLoding();
-      })
-      .catch((err) => {
-        setLoding(false);
-        swal("login failed!", err.message,"error");
-      });
-  };
 
- const updateContext=(data)=>{
-  user.setUser({
-    ...user.get,
-    login:true,
-    id:data.id,  
-    token:data.token,
-    name:data.name,
-    role:data.role
-  });
- };
+   Api({method:"POST",url:"user/login",data:form}).then((res)=>{
+     check(res);
+     setLoding(false);
+     dispatch(
+            userAdd({
+                login:true,
+                name:res.data.data.user.name,
+                email:res.data.data.user.email,
+                token:res.data.data.user.token,
+                status:res.data.data.user.status
+            }));
+          navigate("/", { replace: true });
+   })
+  };
 
   //save all change to state
   const handleChange = (e) => {

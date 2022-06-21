@@ -1,13 +1,14 @@
 import "../css/main.css";
 import { NavLink } from "react-router-dom";
-import {  useContext } from "react";
-import UserContext from "./context"; 
+import { useSelector } from "react-redux"
+
 
 function Header(props) {
 const a ="text-white";
 const b="text-red-500";
-const user= useContext(UserContext);
-console.log(user.get.login);
+const user = useSelector((state)=>state);
+// console.log(user);
+
   return (
     <>
     <div className="drawer">
@@ -24,7 +25,10 @@ console.log(user.get.login);
       <div className="flex-none hidden lg:block">
         <ul className=" gap-10 pr-5 menu-horizontal">
         <li><NavLink to="/" className={({ isActive }) => isActive ? b : a}>Home</NavLink></li>
-        {user.get.login ? <Navlogin/> : <li><a href="/login" className="text-white">Login</a></li> }
+        {user.status==='ADMIN' ? <Navadmin></Navadmin> :"" }
+        <li><NavLink to="/complain" className={({ isActive }) => isActive ? b : a}>Complain</NavLink></li>
+          <li><NavLink to="/profile" className={({ isActive }) => isActive ? b : a}>Profil</NavLink></li>
+          <li><button className=" text-white">Logout</button></li>
         </ul>
       </div>
     </div>
@@ -49,23 +53,15 @@ console.log(user.get.login);
   );
 }
 
-function Navlogin(){
-const a ="text-white";
-const b="text-red-500";
-const user= useContext(UserContext);
-  return (
+
+
+function Navadmin(){
+  return(
     <>
-          {user.get.role === "ADMIN" ?
-          `<li><NavLink to="/product" className={({ isActive }) => isActive ? b : a}>Product</NavLink></li>
-          <li><NavLink to="/categori" className={({ isActive }) => isActive ? b : a}>Categori</NavLink></li>`
-          :""
-        }
-        <li><NavLink to="/complain" className={({ isActive }) => isActive ? b : a}>Complain</NavLink></li>
-          <li><NavLink to="/profile" className={({ isActive }) => isActive ? b : a}>Profil</NavLink></li>
-          <li><button className=" text-white">Logout</button></li>
+    <li><NavLink to="/product" className={({ isActive }) => isActive ? "text-red-500" : "text-white"}>Product</NavLink></li>
+          <li><NavLink to="/categori" className={({ isActive }) => isActive ? "text-red-500" : "text-white"}>Categori</NavLink></li>
     </>
-  );
-}
+  )}
 
 
 export default Header;
