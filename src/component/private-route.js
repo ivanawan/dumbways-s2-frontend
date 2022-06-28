@@ -1,6 +1,7 @@
 
 import { Navigate} from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { userlogout } from '../app/slice/userSlice';
 
 export const Islogin = ({children}) => {    
     const user = useSelector((state)=>state);
@@ -14,7 +15,7 @@ export const Islogin = ({children}) => {
 
 export const Isadmin = ({children}) => {    
     const user = useSelector((state)=>state);
-    if( user.role !== "ADMIN"){
+    if( user.status !== "ADMIN"){
     if(user.login === false){
         console.log("if2",user);
         return  <Navigate to="/login" />
@@ -35,3 +36,8 @@ export const Notlogin = ({children}) => {
     return  children ;
 };
 
+export const Logout = () => {    
+    const dispatch=useDispatch();
+    dispatch(userlogout());
+    return  <Navigate to="/login" />
+};

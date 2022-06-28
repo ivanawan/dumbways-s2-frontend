@@ -1,23 +1,33 @@
 import '../css/main.css'
 import Header from '../component/Header';
 import 'remixicon/fonts/remixicon.css';
-import { useEffect, useState } from 'react';
-import {check, api ,useData} from '../component/api';
-import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import {check} from '../component/api';
 import Card from '../component/card';
+import { useQuery } from 'react-query';
+import axios from '../component/axios';
+import { useSelector } from 'react-redux';
 
 function Home(){
-   const data =useData('product');
-   const [search,setSearch]=useState("");
-   console.log(data);
+const user = useSelector((state)=>state);
+const [search,setSearch]=useState("");
+axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
 
-   const listItems = data?.products.map((number,i) =>
-  <Card title={number.title}  price={number.price} id={number.id} image={number.image} key={i}/>
+ const {data,refetch} =useQuery('product',async () => {
+  return await axios.get(`/product`,{ params: { title: search} });
+})
+
+check(data);
+
+   const listItems = data?.data.data.products.map((product,i) =>
+   <a href={'/product/'+product.id} key={i}>
+  <Card title={product.title}  price={product.price} id={product.id} image={product.image} />
+   </a>
   );
 
-
   const handleSumbmit=(e)=>{
-    console.log(search)
+    e.preventDefault()
+    refetch()
   }
  
 return(

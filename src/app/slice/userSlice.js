@@ -2,17 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState={
     login:false,
+    id:0,
     name:"",
     email:"",
     token:"",
     status:""
 }
-
-// const  initialState =[
-//     {id:"1",name:"patric",email:"email"},
-//     {id:"2",name:"spongbob",email:"email"},
-//     {id:"3",name:"syma",email:"email"}
-// ]
 
 const userSlice= createSlice({
  name:"users",
@@ -21,6 +16,7 @@ const userSlice= createSlice({
     userAdd(state,action){
         const data= action.payload;
         state.login=data.login;
+        state.id=data.id;
         state.name=data.name;
         state.email=data.email;
         state.token=data.token;
@@ -28,6 +24,7 @@ const userSlice= createSlice({
     },
     userlogout(state){
         state.login=false;
+        state.id=0;
         state.name="";
         state.email="";
         state.token="";

@@ -3,39 +3,42 @@ import { userAdd } from "../app/slice/userSlice";
 import { useDispatch} from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "../css/main.css";
-
-import {Api,check} from "../component/api";
+import apiClient from '../component/axios';
+import {check} from "../component/api";
 
 
 
 function Login() {
-  const [form, setForm] = useState({ email: "", password: "" });// for hadle form 
-  const [loding, setLoding] = useState(false); // for hadle loading 
+  const [form, setForm] = useState({ email: "", password: "" });// for hadle form
+  const [loading, setLoading] = useState(false); // for hadle loading
   const [visiblity,setVisibility]= useState(false); //for handle visibility password
   let navigate = useNavigate();
   const dispatch=useDispatch();
-  
+
+
   /**
    * handle submit to the api
-   * @param {object} e 
+   * @param {object} e
    */
-  const handleSubmit = (e) => {
+  const HandleSubmit = (e) => {
     e.preventDefault();
-    setLoding(true);
-
-   Api({method:"POST",url:"user/login",data:form}).then((res)=>{
-     check(res);
-     setLoding(false);
-     dispatch(
+    setLoading(!loading);
+    apiClient.post("/user/login",form).then(res=>{
+      console.log(res.data);
+    check(res);
+    dispatch(
             userAdd({
                 login:true,
-                name:res.data.data.user.name,
-                email:res.data.data.user.email,
-                token:res.data.data.user.token,
+                id    :res.data.data.user.id,
+                name  :res.data.data.user.name,
+                email :res.data.data.user.email,
+                token :res.data.data.user.token,
                 status:res.data.data.user.status
-            }));
-          navigate("/", { replace: true });
-   })
+            })
+      );
+    });
+    setLoading(!loading);
+    navigate('/',{replace:true});
   };
 
   //save all change to state
@@ -70,7 +73,7 @@ function Login() {
         </div>
         <div className="item2">
           {/* //form */}
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={HandleSubmit}>
             <p className=" text-xl font-semibold text-white">Login</p>
             <div className="my-5 w-full max-w-sm mx-auto">
               <input
@@ -93,7 +96,7 @@ function Login() {
                 />
                 </div>
             </div>
-            {loding ? (
+            {loading ? (
               <button
                 type="submit"
                 className=" bg-red-400 w-full rounded text-white text-center h-8"

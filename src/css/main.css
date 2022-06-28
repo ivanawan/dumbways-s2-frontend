@@ -34,3 +34,11 @@
 .eye{
   @apply absolute right-2 top-3 text-white;
 }
+
+.custtable{
+  @apply bg-[#232323] hover:bg-[#303030] border-b border-gray-600;
+}
+
+.custtable tr{
+  @apply px-4 py-4;
+}
