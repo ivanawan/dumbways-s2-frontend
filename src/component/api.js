@@ -10,7 +10,7 @@ import swal from 'sweetalert';
 // // console.log(api);
 //    return axios({
 //         method: api.method,
-//         url: `http://${window.location.hostname}:5000/${api.url}`,
+//         url: `${process.env.REACT_APP_URL}/${api.url}`,
 //         data: api.data,
 //         headers: {
 //             "Access-Control-Allow-Origin": "http://localhost:3000",
@@ -47,7 +47,7 @@ import swal from 'sweetalert';
 //     useEffect(()=>{
 //         axios({
 //             method:'GET',
-//             url: `http://${window.location.hostname}:5000/${route}`,
+//             url: `${process.env.REACT_APP_URL}/${route}`,
 //             headers: {
 //                 "Access-Control-Allow-Origin": "http://localhost:3000",
 //                 "Content-Type": "application/json",
@@ -67,7 +67,7 @@ import swal from 'sweetalert';
 // export function api(api){
 //    return axios({
 //         method: api.method,
-//         url: `http://${window.location.hostname}:5000/${api.url}`,
+//         url: `${process.env.REACT_APP_URL}/${api.url}`,
 //         data: api.data,
 //         headers: {
 //             "Access-Control-Allow-Origin": "http://localhost:3000",

@@ -26,7 +26,7 @@ function FormPruduct(){
                    qty:res.data.data.product.qty,
                    price:res.data.data.product.price
                });
-               setPreview(`http://${window.location.hostname}:5000/public/image/${res.data.data.product.image}`);
+               setPreview(`${process.env.REACT_APP_URL}/public/image/${res.data.data.product.image}`);
             });
 
        }

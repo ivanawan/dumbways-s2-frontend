@@ -2,7 +2,7 @@ import Star from "./Star"
 function Card(props){
     return(
         <div className="card  bg-base-100 shadow-xl" >
-        <figure><img className=' aspect-video' src={`http://${window.location.hostname}:5000/public/image/${props.image}`} alt="Shoes" /></figure>
+        <figure><img className=' aspect-video' src={`${process.env.REACT_APP_URL}/public/image/${props.image}`} alt="Shoes" /></figure>
         <div className="card-body rounded px-4 pb-3 bg-slate-800 text-white">
             <div className=' flex justify-between'>
             <p className=' font-medium'>IDR {props.price} </p>

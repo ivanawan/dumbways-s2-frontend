@@ -1,35 +1,46 @@
 import { useState} from "react";
-
+import { userAdd } from "../app/slice/userSlice";
 import { useNavigate } from "react-router-dom";
 import "../css/main.css";
-// import axios from "axios";
+import { useDispatch} from "react-redux";
 import axios from "../component/axios";
 import swal from "sweetalert";
+import {check} from "../component/api";
 
 function Register() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
+  // const [loading, setLoading] = useState(false); // for hadle loading
   const [loding, setLoding] = useState(false);
   const [visiblity,setVisibility] =useState(false);
   // const user = useContext(UserContext);
   let navigate = useNavigate();
-
+  const dispatch=useDispatch();
 
 
   // hadle submit and send data toa api
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoding(true);
+    setLoding(!loding);
     axios.post('/user/register',form)
       .then((res) => {
         console.log(res);
-        setLoding(false);
-        if (res.data.status === "error" || res.data.status === "failed") {
-          swal("login Failed!", res.data.message, "error");
-        } 
+        dispatch(
+          userAdd({
+              login:true,
+              id    :res.data.data.user.id,
+              name  :res.data.data.user.name,
+              email :res.data.data.user.email,
+              token :res.data.data.user.token,
+              status:res.data.data.user.status
+          })
+    );
+  // });
+  setLoding(!loding);
+  navigate('/',{replace:true});
       
       })
       .catch((err) => {
-        setLoding(false);
+        setLoding(!loding);
         swal("login failed!", err.message,"error");
       });
   };

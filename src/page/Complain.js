@@ -21,7 +21,7 @@ function Complain(){
     console.log("user=> ", user);
 
     useEffect(()=>{
-        socket = io(`http://${window.location.hostname}:5000`, {
+        socket = io(`${process.env.REACT_APP_URL}`, {
             auth: { token: user.token }
         })
 

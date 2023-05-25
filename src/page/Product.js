@@ -33,7 +33,7 @@ function Product(){
   const listItems = data?.data.data.products.map((product,i) =>
   <tr className="custtable" key={product.id}>
   <td >{i+1}</td>
-  <td className=' flex justify-center items-center h-full '><img src={`http://${window.location.hostname}:5000/public/image/${product.image}`} alt="" className='h-13 aspect-video' /></td>
+  <td className=' flex justify-center items-center h-full '><img src={`${process.env.REACT_APP_URL}/public/image/${product.image}`} alt="" className='h-13 aspect-video' /></td>
   <td >{product.title}</td>
   <td >{product.desc}</td>
   <td >{product.price}</td>

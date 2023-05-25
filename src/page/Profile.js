@@ -55,7 +55,7 @@ const transactionsList = (transactions?.data.transaction.map(item=>
     My Profile
 </p>
 <div className=' flex mt-5'>
-<img src={data?.data.data?.Profil === null ? imageNull:`http://${window.location.hostname}:5000/public/image/${data?.data.data?.Profil.image}`} className='aspect-[4/5] object-cover w-72' alt="" />
+<img src={data?.data.data?.Profil === null ? imageNull:`${process.env.REACT_APP_URL}/public/image/${data?.data.data?.Profil.image}`} className='aspect-[4/5] object-cover w-72' alt="" />
 <div className=' w-full pl-4'>
 <div className=' flex flex-col text-white'>
 <div className=' '>
@@ -90,7 +90,7 @@ const transactionsList = (transactions?.data.transaction.map(item=>
     // console.log(item.Product?.title)
 <div className=' bg-[#303030] mt-5  gap-4 h-36 flex justify-between ' key={item.id}>
 <div className='flex gap-3 p-3 '>
-<img src={`http://${window.location.hostname}:5000/public/image/${item.Product.image}`} className=' aspect-square object-cover' alt="" />
+<img src={`${process.env.REACT_APP_URL}/public/image/${item.Product.image}`} className=' aspect-square object-cover' alt="" />
 <div className='flex flex-col gap-4'>
     <div className=''>
     <p className='text-red-500 font-semibold'>{item?.Product.title}</p>

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default axios.create({
-    baseURL: `http://${window.location.hostname}:5000/`,
+    baseURL: `${process.env.REACT_APP_URL}/`,
     headers: {
         "Content-type": "application/json"
       }
@@ -9,7 +9,7 @@ export default axios.create({
 
 
 export const mutlipart = axios.create({
-    baseURL: `http://${window.location.hostname}:5000/`,
+    baseURL: `${process.env.REACT_APP_URL}/`,
     headers: {
         "Content-type": "multipart/form-data"
     }

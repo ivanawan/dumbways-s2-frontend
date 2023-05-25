@@ -75,7 +75,7 @@ return(
 <Header>
     <div className='flex gap-6 mt-7 mb-7'>
         <div className='w-[50%]'> 
-        <img src={`http://${window.location.hostname}:5000/public/image/${data?.data.data.product.image}`} className=' ml-28 w-[25rem] h-[30rem]  object-cover' alt="" />
+        <img src={`${process.env.REACT_APP_URL}/public/image/${data?.data.data.product.image}`} className=' ml-28 w-[25rem] h-[30rem]  object-cover' alt="" />
         </div>
         <div className='w-[50%]'>
         <p className=' text-red-500 text-3xl font-semibold'>{data?.data.data.product.title}</p>
