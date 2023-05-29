@@ -1,47 +1,48 @@
-import { useState} from "react";
+import { useState } from "react";
 import { userAdd } from "../app/slice/userSlice";
 import { useNavigate } from "react-router-dom";
 import "../css/main.css";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "../component/axios";
 import swal from "sweetalert";
-import {check} from "../component/api";
+import { check } from "../component/api";
 
 function Register() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
-  // const [loading, setLoading] = useState(false); // for hadle loading
   const [loding, setLoding] = useState(false);
-  const [visiblity,setVisibility] =useState(false);
-  // const user = useContext(UserContext);
-  let navigate = useNavigate();
-  const dispatch=useDispatch();
+  const [visiblity, setVisibility] = useState(false);
 
+  let navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // hadle submit and send data toa api
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoding(!loding);
-    axios.post('/user/register',form)
+    axios
+      .post("/user/register", form)
       .then((res) => {
-        console.log(res);
-        dispatch(
-          userAdd({
-              login:true,
-              id    :res.data.data.user.id,
-              name  :res.data.data.user.name,
-              email :res.data.data.user.email,
-              token :res.data.data.user.token,
-              status:res.data.data.user.status
-          })
-    );
-  // });
-  setLoding(!loding);
-  navigate('/',{replace:true});
-      
+        console.log("res", res);
+        setLoding(!loding);
+        if (res.data.status === "error") {
+          swal("login failed!", res.data.message, "error");
+        } else {
+          dispatch(
+            userAdd({
+              login: true,
+              id: res.data.data.user.id,
+              name: res.data.data.user.name,
+              email: res.data.data.user.email,
+              token: res.data.data.user.token,
+              status: res.data.data.user.status,
+            })
+          );
+          navigate("/", { replace: true });
+        }
       })
       .catch((err) => {
         setLoding(!loding);
-        swal("login failed!", err.message,"error");
+        swal("login failed!", err.message, "error");
       });
   };
 
@@ -94,15 +95,20 @@ function Register() {
                 className="input input-bordered rounded text-white bg-[#D2D2D2]/25  mt-2 input-sm w-full "
               />
               <div className=" relative">
-             <i onClick={()=>setVisibility(!visiblity)} className={visiblity ? "ri-eye-line eye" :"ri-eye-close-line eye" }></i>
-              <input
-                 type={visiblity ? "text":"password"}
-                name="password"
-                placeholder="Password"
-                onChange={handleChange}
-                className="input input-bordered  text-white rounded bg-[#D2D2D2]/25 mt-2 input-sm w-full "
+                <i
+                  onClick={() => setVisibility(!visiblity)}
+                  className={
+                    visiblity ? "ri-eye-line eye" : "ri-eye-close-line eye"
+                  }
+                ></i>
+                <input
+                  type={visiblity ? "text" : "password"}
+                  name="password"
+                  placeholder="Password"
+                  onChange={handleChange}
+                  className="input input-bordered  text-white rounded bg-[#D2D2D2]/25 mt-2 input-sm w-full "
                 />
-                </div>
+              </div>
             </div>
             {loding ? (
               <button
